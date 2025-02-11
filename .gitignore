@@ -17,5 +17,5 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-#logs/*
-#!.gitkeep  # Esclude tutti i file in logs/ tranne .gitkeep
+logs/*
+!.gitkeep  # Esclude tutti i file in logs/ tranne .gitkeep

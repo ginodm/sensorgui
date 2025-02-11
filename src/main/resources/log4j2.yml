@@ -1,0 +1,33 @@
+Configuration:
+  status: warn   
+  appenders:
+     console:
+       name: Console
+       target: SYSTEM_OUT
+       PatternLayout:
+         pattern: "%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"
+
+     rollingFile:
+       name: FileLogger
+       fileName: logs/application.log  # Salva il log in "progetto/logs/application.log"
+       filePattern: logs/application-%d{yyyy-MM-dd-HH-mm}.log.gz
+       PatternLayout:
+         pattern: "%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"
+       Policies:
+         SizeBasedTriggeringPolicy:
+           size: 10M # Ruota il log quando supera i 10MB
+       DefaultRolloverStrategy:
+         max: 4 # Mantiene solo gli ultimi 4 file
+  Loggers:
+    logger:
+     - name: it.edu.marconilatina.arduino
+       level: debug
+       additivity: false
+       AppenderRef:
+         - ref: Console
+         - ref: FileLogger
+    Root:
+      level: info
+      AppenderRef:
+        - ref: Console
+        - ref: FileLogger
