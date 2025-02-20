@@ -19,7 +19,7 @@ public class SensorViewMedusa extends VBox implements ISensorView{
             .skinType(Gauge.SkinType.DASHBOARD)
             .title("Termometro")
             .unit("°C")
-            .minValue(0)
+            .minValue(-50)
             .maxValue(50)
             .animated(true)
             .build();
@@ -29,7 +29,7 @@ public class SensorViewMedusa extends VBox implements ISensorView{
             .skinType(Gauge.SkinType.LCD)
             .title("Temperatura")
             .unit("°C")
-            .minValue(0)
+            .minValue(-50)
             .maxValue(50)
             .animated(true)
             .build();

@@ -31,7 +31,7 @@ public class Arduino extends Application {
         server = new Server(new SensorControllerED(root));
         thread = new Thread(server);
                 
-        Scene scene = new Scene((SensorViewMedusa)root, 300, 250);
+        Scene scene = new Scene((SensorViewMedusa)root, 400, 350);
 
         primaryStage.setTitle("Sensor Simulator");
         primaryStage.setScene(scene);
