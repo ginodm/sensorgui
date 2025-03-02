@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="root" fx:id="root" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.edu.marconilatina.arduino.controller.SensorControllerED">
+   <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <AnchorPane id="contentPane" VBox.vgrow="ALWAYS">
+         <children>
+            <GridPane id="grid" fx:id="grid">
+              <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="ALWAYS" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <TableView fx:id="tab" id="tab" prefHeight="200.0" prefWidth="400.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <columns>
+                      <TableColumn prefWidth="200.0" text="Temperatura C°" fx:id="valueColumn"/>
+                      <TableColumn prefWidth="100.0" text="Time" fx:id="sensorColumn" />
+                    </columns>
+                  </TableView>
+               </children>
+            </GridPane>
+         </children></AnchorPane>
+      <Label id="statusLabel" fx:id="statusLabel" style="-fx-padding: 5px; -fx-background-color: #ddd;" text="Ready" />
+   </children>
+</VBox>

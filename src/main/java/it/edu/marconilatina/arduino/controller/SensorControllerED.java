@@ -1,24 +1,70 @@
 package it.edu.marconilatina.arduino.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import it.edu.marconilatina.arduino.event.SensorDataEvent;
 import it.edu.marconilatina.arduino.model.sensor.ISensor;
-import it.edu.marconilatina.arduino.view.ISensorView;
+import it.edu.marconilatina.arduino.model.sensor.impl.FakeSensor;
+import it.edu.marconilatina.arduino.view.impl.SensorViewMedusa;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventDispatchChain;
 import javafx.event.EventDispatcher;
 import javafx.event.EventTarget;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  * Il controller e anche un event Target che riceve si registra per consumare
  * gli eneventi di tipo {@link SensorDataEvent}.
  */
-public class SensorControllerED implements EventTarget {
+public class SensorControllerED implements EventTarget, Initializable {
 
-	private final ISensorView view;
+	private SensorViewMedusa view;
+
+	@FXML
+	private TableView<FakeSensor> tab;
+	@FXML
+    private TableColumn<FakeSensor, String> sensorColumn;
+
+    @FXML
+    private TableColumn<FakeSensor, Double> valueColumn;
+	@FXML
+	private Label statusLabel;
+
+	@FXML
+	private GridPane grid;
+
+	private final ObservableList<FakeSensor> sensorDataList = FXCollections.observableArrayList();
+
 	
-	public SensorControllerED(ISensorView view) {
-		super();
-		this.view = view;
+	@FXML
+	private void handleClose() {
+		Platform.exit();
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		view = new SensorViewMedusa();
+
+		grid.add(view, 0, 0);
+		GridPane.setHgrow(view, Priority.ALWAYS);
+        GridPane.setVgrow(view, Priority.ALWAYS);
+		statusLabel.setText("pippo");
+		// Impostazione delle colonne della TableView
+        sensorColumn.setCellValueFactory(new PropertyValueFactory<>("sensorName"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        tab.setItems(sensorDataList);
 	}
 
 	/**
@@ -28,7 +74,9 @@ public class SensorControllerED implements EventTarget {
 	 */
 	public void fireEvent(SensorDataEvent e) {
 		ISensor s = e.getSensor();
+		
 		view.updateSensorData(s.getSensorName(), s.getValue());
+		sensorDataList.add((FakeSensor) s);
 	}
 
 	/* Cos'e' la Event Dispatch Chain?
@@ -47,16 +95,16 @@ public class SensorControllerED implements EventTarget {
 	 */
 	@Override
 	public EventDispatchChain buildEventDispatchChain(EventDispatchChain tail) {
-		
+
 		return tail.prepend(new EventDispatcher() { // Creo una classe anonima per gestire l'evento
-			
+
 			@Override
 			public Event dispatchEvent(Event event, EventDispatchChain tail) {
-				
+
 				if(event instanceof SensorDataEvent) {
-					
+
 					fireEvent((SensorDataEvent) event);
-					
+
 					return null; // bolocco la propagazione dell'evento
 				}
 				return tail.dispatchEvent(event);

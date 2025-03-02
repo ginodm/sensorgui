@@ -22,6 +22,7 @@ public class SensorViewMedusa extends VBox implements ISensorView{
             .minValue(-50)
             .maxValue(50)
             .animated(true)
+            .maxSize(Double.MAX_VALUE, Double.MAX_VALUE)
             .build();
 
         // Creazione display LCD per temperatura numerica

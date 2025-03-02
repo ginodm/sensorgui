@@ -14,11 +14,11 @@ import com.sun.javafx.event.EventDispatchChainImpl;
 
 import it.edu.marconilatina.arduino.event.SensorDataEvent;
 import it.edu.marconilatina.arduino.model.sensor.ISensor;
-import it.edu.marconilatina.arduino.model.sensor.impl.DataSimulator;
 import it.edu.marconilatina.arduino.model.sensor.impl.FakeSensor;
 import it.edu.marconilatina.arduino.server.data.DataDecoder;
 import javafx.application.Platform;
 import javafx.event.EventTarget;
+
 /**
  * La classe definisce un codice che puo' essere seguito all'interno di un thread.
  * 
@@ -97,9 +97,10 @@ public class Server implements Runnable {
 							eventTarget.buildEventDispatchChain(
 									new EventDispatchChainImpl()
 									).dispatchEvent(event);
+							LOG.debug("Evnto generto");
 						});
 
-						LOG.debug("Evnto generto");
+						
 						
 					} catch (Exception e) {
 						LOG.error(e);
