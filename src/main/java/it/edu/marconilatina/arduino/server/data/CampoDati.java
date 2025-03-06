@@ -9,8 +9,10 @@ public interface CampoDati {
 	
 	public static final int TIPO_DATO   = 0x03;  // Byte 3 Tipo di dato
 	
-	public static final int VALORE_H    = 0x04;  // Byte 4 Parte alta del valore
-	public static final int VALORE_L    = 0x05;  // Byte 5 Parte bassa del valore
+	public static final int VALORE_0    = 0x04;  // Byte 1 valore double
+	public static final int VALORE_1    = 0x05;  // Byte 2 valore double
+	public static final int VALORE_2    = 0x06;  // Byte 3 valore double
+	public static final int VALORE_3    = 0x07;  // Byte 4 valore double
 	
-	public static final int CHECKSUM    = 0x06;  // Byte 6 Checksum
+	public static final int CHECKSUM    = 0x08;  // Byte 6 Checksum
 }

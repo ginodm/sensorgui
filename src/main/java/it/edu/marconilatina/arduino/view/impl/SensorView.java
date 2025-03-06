@@ -13,7 +13,7 @@ public class SensorView extends VBox implements ISensorView{
         getChildren().add(label);
     }
 	
-	public void updateSensorData(String sensorName, double value) {
+	public void updateSensorData(String sensorName, float value) {
         label.setText(sensorName + ": " + value + "°C");
     }	
 	

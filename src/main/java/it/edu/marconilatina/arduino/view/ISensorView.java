@@ -12,5 +12,5 @@ public interface ISensorView {
 	 * @param sensorName
 	 * @param value
 	 */
-	public void updateSensorData(String sensorName, double value);
+	public void updateSensorData(String sensorName, float value);
 }

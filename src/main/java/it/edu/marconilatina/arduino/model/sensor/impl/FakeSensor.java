@@ -7,10 +7,10 @@ import it.edu.marconilatina.arduino.model.sensor.ISensor;
 public class FakeSensor implements ISensor {
 
 	private String sensorName;
-    private double value;
+    private float value;
     private long timestamp;
     
-	public FakeSensor(String sensorName, double value, long timestamp) {
+	public FakeSensor(String sensorName, float value, long timestamp) {
 		super();
 		this.sensorName = sensorName;
 		this.value = value;
@@ -24,7 +24,7 @@ public class FakeSensor implements ISensor {
 	}
 
 	@Override
-	public double getValue() {
+	public float getValue() {
 		
 		return this.value;
 	}

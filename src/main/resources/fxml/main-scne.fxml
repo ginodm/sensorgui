@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import it.edu.marconilatina.arduino.view.impl.OSMMapView ?>
 
 <VBox id="root" fx:id="root" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.edu.marconilatina.arduino.controller.SensorControllerED">
    <children>
@@ -41,15 +43,21 @@
                 <RowConstraints vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="tab" id="tab" prefHeight="200.0" prefWidth="400.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                  <TableView id="tab" fx:id="tab" prefHeight="200.0" prefWidth="400.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn prefWidth="200.0" text="Temperatura C°" fx:id="valueColumn"/>
-                      <TableColumn prefWidth="100.0" text="Time" fx:id="sensorColumn" />
+                      <TableColumn fx:id="valueColumn" prefWidth="200.0" text="Temperatura C°" />
+                      <TableColumn fx:id="sensorColumn" prefWidth="100.0" text="Time" />
                     </columns>
                   </TableView>
                </children>
             </GridPane>
-         </children></AnchorPane>
+         </children>
+         </AnchorPane>
+      
+	      <OSMMapView fx:id="mapView" VBox.vgrow="ALWAYS"/>
+	      <Button text="Aggiungi Marcatore" onAction="#addMarker"/>
+	      <Button text="Lampeggia Marcatore" onAction="#blinkMarker"/>
+	   
       <Label id="statusLabel" fx:id="statusLabel" style="-fx-padding: 5px; -fx-background-color: #ddd;" text="Ready" />
    </children>
 </VBox>

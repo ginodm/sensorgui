@@ -3,12 +3,13 @@ package it.edu.marconilatina.arduino.view.impl;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
 import it.edu.marconilatina.arduino.view.ISensorView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
  * Implementazione degli strimenti digitali inseriti nella finestra.
  */
-public class SensorViewMedusa extends VBox implements ISensorView{
+public class SensorViewMedusa extends Pane implements ISensorView{
 
 	private Gauge thermometer;
     private Gauge lcdDisplay;
@@ -35,12 +36,12 @@ public class SensorViewMedusa extends VBox implements ISensorView{
             .animated(true)
             .build();
 
-        getChildren().addAll(lcdDisplay, thermometer);
-        setSpacing(20);
+        getChildren().addAll(lcdDisplay);
+        
 	}
     
     
-    public void updateSensorData(String sensorName, double value) {
+    public void updateSensorData(String sensorName, float value) {
         lcdDisplay.setValue(value);
         thermometer.setValue(value);
     }

@@ -7,7 +7,7 @@ public class DataSimulator {
 	private Random random = new Random();
 	
 	public FakeSensor getSensorReading() {
-        double value = 20 + random.nextDouble() * 10; // Simulazione valore temperatura
+        float value = 20 + random.nextFloat() * 10; // Simulazione valore temperatura
         
         return new FakeSensor("TemperatureSensor", value, System.currentTimeMillis());
     }

@@ -32,7 +32,7 @@ public class Client {
 	}
 
 	private static byte[] generaPacchetto(Random random) {
-		byte[] pacchetto = new byte[7];
+		byte[] pacchetto = new byte[9];
 
 		
 		pacchetto[CampoDati.TIPO_DATO] = (byte) SensorDataType.TEMPERATURA.getCodice();
@@ -43,12 +43,20 @@ public class Client {
 		pacchetto[CampoDati.TEMP_L] = (byte) (timestamp & 0xFF);
 
 		// Valore misurato (-500 a 500)
-		short valore = (short) (random.nextInt(100) - 50);
-		System.out.format("Valore generato %s\n", valore);
+		int valore =  (Float.floatToRawIntBits(random.nextFloat(-50, 50)));
+		System.out.format("Valore generato %s\n", Float.intBitsToFloat(valore));
 		
-		pacchetto[CampoDati.VALORE_H] = (byte) ((valore >> 8) & 0xFF);
-		pacchetto[CampoDati.VALORE_L] = (byte) (valore & 0xFF);
+		pacchetto[CampoDati.VALORE_0] = (byte) (valore & 0xFF);
+		pacchetto[CampoDati.VALORE_1] = (byte) ((valore >> 8) & 0xFF);
+		pacchetto[CampoDati.VALORE_2] = (byte) ((valore >> 16) & 0xFF);
+		pacchetto[CampoDati.VALORE_3] = (byte) ((valore >> 24) & 0xFF);
 
+		int tmp = (pacchetto[CampoDati.VALORE_0] & 0xFF ) | 
+  		      ((pacchetto[CampoDati.VALORE_1] & 0xFF) << 8) |
+  		      ((pacchetto[CampoDati.VALORE_2] & 0xFF) << 16) | 
+  		      ((pacchetto[CampoDati.VALORE_3] & 0xFF) << 24)
+  		      ;
+		System.out.println(Float.intBitsToFloat(tmp));
 		// Checksum (XOR di tutti i byte precedenti)
 		pacchetto[CampoDati.CHECKSUM] = calcolaChecksum(pacchetto);
 
@@ -57,7 +65,7 @@ public class Client {
 
 	private static byte calcolaChecksum(byte[] pacchetto) {
 		byte checksum = 0;
-		for (int i = 0; i < 5; i++) { // XOR di byte 0-4
+		for (int i = 0; i < 9; i++) { // XOR di byte 0-4
 			checksum ^= pacchetto[i];
 		}
 		return checksum;

@@ -10,11 +10,11 @@ import java.io.InputStream;
  */
 public class DataDecoder {
 
-	public static final int DIMENSIONE_PACCHETTO = 7; // 7 byte previsti dal protocollo
+	public static final int DIMENSIONE_PACCHETTO = 9; // 9 byte previsti dal protocollo
 
 	private int timestamp;
     private SensorDataType tipoDato;
-    private int valore;
+	private float valore;
     private int checksum;
    
 	public int getTimestamp() {
@@ -25,7 +25,7 @@ public class DataDecoder {
 		return tipoDato;
 	}
 
-	public int getValore() {
+	public float getValore() {
 		return valore;
 	}
 
@@ -74,9 +74,14 @@ public class DataDecoder {
          * e percio' la parte alta del valore deve riportare il bit egno senza
          * alterazioni.
          */
-        this.valore = ((buffer[CampoDati.VALORE_H]) << 8) | 
-        		       (buffer[CampoDati.VALORE_L] & 0xFF);
-
+        int tmp = (buffer[CampoDati.VALORE_0] & 0xFF) | 
+        		      ((buffer[CampoDati.VALORE_1] & 0xFF) << 8) |
+        		      ((buffer[CampoDati.VALORE_2] & 0xFF) << 16) | 
+        		      ((buffer[CampoDati.VALORE_3] & 0xFF) << 24)
+        		      ;
+        this.valore = Float.intBitsToFloat(tmp);
+        
+System.out.println(this.valore);
         // Estrarre il checksum (opzionale, dipende dal protocollo)
         this.checksum = buffer[CampoDati.CHECKSUM] & 0xFF;
 	}

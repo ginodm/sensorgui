@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import it.edu.marconilatina.arduino.event.SensorDataEvent;
 import it.edu.marconilatina.arduino.model.sensor.ISensor;
 import it.edu.marconilatina.arduino.model.sensor.impl.FakeSensor;
+import it.edu.marconilatina.arduino.view.impl.OSMMapView;
 import it.edu.marconilatina.arduino.view.impl.SensorViewMedusa;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -44,6 +45,20 @@ public class SensorControllerED implements EventTarget, Initializable {
 	@FXML
 	private GridPane grid;
 
+	@FXML
+    private OSMMapView mapView;
+
+    @FXML
+    public void addMarker() {
+        mapView.addMarker(41.9028, 12.4964, "roma"); // Aggiunge un marcatore a Roma
+        System.out.println("Marcatore");
+    }
+
+    @FXML
+    public void blinkMarker() {
+        mapView.blinkMarker("roma"); // Fa lampeggiare il marcatore
+    }
+    
 	private final ObservableList<FakeSensor> sensorDataList = FXCollections.observableArrayList();
 
 	
